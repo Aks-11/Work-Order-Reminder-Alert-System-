@@ -16,7 +16,7 @@ class PO_FILE(Base):
 
 class load_pofile_data():
     def __init__(self, data):
-        self.engine=create_engine("sqlite:///stpi.db", future=True)
+        self.engine=create_engine("sqlite:///stpi.db", future=True, connect_args={"check_same_thread": False})
         self.meta=MetaData()
         self.conn=self.engine.connect()
         self.data=data
@@ -58,6 +58,8 @@ class load_pofile_data():
         
         query=select(PO_FILE)
         result=self.conn.execute(query)
+        self.conn.close()
+        self.engine.dispose()
         return True
         # for row in result:
         #     print(row)

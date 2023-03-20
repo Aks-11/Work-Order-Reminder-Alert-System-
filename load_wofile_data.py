@@ -21,6 +21,8 @@ class load_wofile_data():
         self.conn=self.engine.connect()
         self.check_table()
         self.check_data()
+        self.conn.close()
+        self.engine.dispose()
     
     def check_table(self):
         inspector=inspect(self.engine)
@@ -55,6 +57,7 @@ class load_wofile_data():
 
         query=select(WO_FILE)
         result=conn.execute(query)
+        
         for row in result:
             print(row)
 

@@ -6,7 +6,7 @@ class wofile_extraction():
         self.wofile_data={}
         self.document = Document(filename)
         self.get_date()
-        self.get_po_number()
+        self.get_wo_number()
         self.get_file_order_number()
         self.get_address()
         self.get_contact()
@@ -24,15 +24,15 @@ class wofile_extraction():
         dat=datetime(l[2],l[1],l[0])
         self.wofile_data["Date"]=dat
     
-    def get_po_number(self):
+    def get_wo_number(self):
         wo_pattern="STPIN/PUR/WO/{1}\d{2}[-]\d{2}[/]\d{2}"
         wo=[]
         for x in  self.document.paragraphs:
-            po=re.findall(wo_pattern,x.text)
-            
-            if(len(po)!=0):
+            wo=re.findall(wo_pattern,x.text)
+            print(wo)
+            if(len(wo)!=0):
                 break
-        self.wofile_data["Work_Order_Number"]=po[0]
+        self.wofile_data["Work_Order_Number"]=wo[0]
     
     def get_file_order_number(self):
         file_order_pattern="[A-Z]{4}[/][A-Z]{3}[^\s]*"
