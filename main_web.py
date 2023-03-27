@@ -1,5 +1,6 @@
 from flask import *
 from werkzeug.utils import secure_filename
+from apscheduler.schedulers.background import BackgroundScheduler
 import os
 import pofile_extraction as po
 import load_pofile_data as lopo
@@ -15,7 +16,6 @@ uploads_work = os.path.join(app.instance_path, 'work')
 os.makedirs(uploads_work,exist_ok=True)
 uploads_excel = os.path.join(app.instance_path, 'excel')
 os.makedirs(uploads_excel,exist_ok=True)
-
 
 
 @app.route("/")
@@ -111,5 +111,15 @@ def write_to_excel():
     
     return send_from_directory(directory=uploads_excel,path="STPI_Data.xlsx")
 
+i=0
+def alert():
+    global i
+    print("hhihai",i)
+    i+=1
+
+
 if(__name__=="__main__"):
+    # scheduler = BackgroundScheduler()
+    # scheduler.add_job(func=alert, trigger="interval", days=7)
+    # scheduler.start()
     app.run(debug=True)

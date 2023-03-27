@@ -13,6 +13,7 @@ class WO_FILE(Base):
     Contact=Column("Contact",Integer)
     Amount=Column("Amount",Float)
     Address=Column("Address",String)
+    Reminder=Column("Reminder", Integer, default=0)
     
 class load_wofile_data():
     def __init__(self, data):
