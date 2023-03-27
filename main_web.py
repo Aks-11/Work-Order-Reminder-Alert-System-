@@ -118,7 +118,7 @@ def alert():
     i+=1
 
 
-if(__name__=="__main__"):
+if(__name__=="__main__"):   
     # scheduler = BackgroundScheduler()
     # scheduler.add_job(func=alert, trigger="interval", days=7)
     # scheduler.start()
