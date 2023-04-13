@@ -23,7 +23,7 @@ class alert():
             date_object = datetime.strptime(x["AMC_End_Period"], '%Y-%m-%d').date()
             # print((date_object))
             res=date_object-datetime.today().date()
-            if(res.days>60 or x["Reminder"]>=300):
+            if(res.days>60 or x["Reminder"]>=4):
                 l.pop(n)
                 sze-=1
             else:
