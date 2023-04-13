@@ -61,7 +61,8 @@ class load_wofile_data():
         
         for row in result:
             print(row)
-
+        self.conn.close()
+        self.engine.dispose()
 
     
 # data=[{'Date': datetime.datetime(2022, 8, 8, 0, 0), 'Work_Order_Number': 'STPIN/PUR/WO/22-23/07', 'File_Order_Number': 'SMSG/OMS/02/006-STPIN', 'Address': 'M/s Fusion ServicesJ-5, Park Street,Mayur Vihar-IIDelhi-110091', 'Contact': '9717054734', 'Subject': ' Comprehensive AMC for Tritronics make UPS Systems installed at STPI Noida', 'Amount': 141600.0, 'AMC_Start_Period': datetime.datetime(2022, 9, 20, 0, 0), 'AMC_End_Period': datetime.datetime(2023, 9, 19, 0, 0)}]

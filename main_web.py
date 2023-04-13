@@ -7,7 +7,8 @@ import load_pofile_data as lopo
 import wofile_extraction as wo
 import load_wofile_data as lowo
 import write_to_excel as wrt
-
+import alert as al
+import mail as ml
 app=Flask(__name__)
 app.config['SECRET_KEY']='1805654e9e7fd00be253cca13ddab5da'
 uploads_purchase = os.path.join(app.instance_path, 'purchase')
@@ -111,15 +112,19 @@ def write_to_excel():
     
     return send_from_directory(directory=uploads_excel,path="STPI_Data.xlsx")
 
-i=0
+
 def alert():
-    global i
-    print("hhihai",i)
-    i+=1
+    obj=al.alert()
+    data=obj.check()
+    print("main\n",data)
+    if(len(data)!=0):
+        obj=ml.mail(data)
+        
+        
 
 
 if(__name__=="__main__"):   
-    # scheduler = BackgroundScheduler()
-    # scheduler.add_job(func=alert, trigger="interval", days=7)
-    # scheduler.start()
-    app.run(debug=True)
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(func=alert, trigger="interval" , days=7)
+    scheduler.start()
+    app.run(use_reloader=False,debug=True)
