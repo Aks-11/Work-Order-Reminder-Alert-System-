@@ -1,0 +1,74 @@
+{%extends 'layout.html' %}
+{% block head%}
+<style>
+label {
+  color: #B4886B;
+  font-weight: bold;
+  width: 200px;
+  padding: 10px;
+  
+
+}
+label:after { content: ": " }
+</style>
+{%endblock%}
+
+
+{%block body%}
+
+<div style="padding: 10px;">
+  <br>
+<h1 style="padding: 1px;border-top: 3px double black; border-bottom : 3px double black; "> Search File</style></h1>
+
+
+
+<form action="", method="POST" enctype="multipart/form-data" >
+    {{form.hidden_tag()}}
+    <div class="form-group"></div>    
+    {{form.File_type.label}}
+    {{form.File_type}}
+    {% if form.File_type.errors %}
+    {% for error in form.File_type.errors %}
+    <span>{{error}}</span>
+    {% endfor %}
+    {% endif %}
+    </div>
+
+    <div class="form-group">
+    {{form.City.label}}
+    {{form.City}}
+    {% if form.City.errors %}
+    {% for error in form.City.errors %}
+    <span>{{error}}</span>
+    {% endfor %}
+    {% endif %}
+    </div>
+
+    <div class="form-group">
+    {{form.Order_ID.label}}
+    {{form.Order_ID}}
+    {% if form.Order_ID.errors %}
+    {% for error in form.Order_ID.errors %}
+        <span>{{error}}</span>
+    {% endfor %}
+    {% endif %}
+    </div>
+
+    <input  type="submit" value="Submit">
+</form>
+
+</div>
+{% endblock%}
+
+<!-- 
+<label>Date<t></t></label>
+  <input type="date"><br>
+  <label >Purchase Order Number</label> <input type="text" required ><br>
+  <label>File Order Number</label> <input type="text" required><br>
+  <label>Subject</label> <input type=""text required><br>
+  <label>Contact</label> <input type="number" required min="10" max="10" ><br>
+  <label>Amount</label> <input type="number" required><br>
+  <label>Address</label> <textarea ></textarea><br>
+
+  <label for="myfile">Select all purchase order docx files</label>
+<input type="file" id="purchase_order_file" name="purchase_order_file" accept="application/pdf" required><br><br> -->

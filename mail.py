@@ -7,12 +7,14 @@ import datetime
 # from email.mime.text import MIMEText
 # creates SMTP session
 class mail():
-    def __init__(self, data):
+    def __init__(self, data,email):
         self.msg=data
         self.s = smtplib.SMTP('smtp.office365.com', 587)
         self.sender_id="test.yuvraj@outlook.com"
-        self.sender_password="Yuvraj@123"
+        self.sender_password="mehta@123"
+        self.to_email=email
         self.send_mail()
+        # print(email, data)
 
     def send_mail(self):
         # start TLS for security
@@ -69,7 +71,7 @@ class mail():
 
         message['Subject'] =str( f"Notification for work order {datetime.datetime.today()}")
         message['From'] = "test.yuvraj@outlook.com"
-        message['To'] = "abssiwan@gmail.com"
+        message['To'] = self.to_email
         # sending the mail
         self.s.sendmail(self.sender_id, "abssiwan@gmail.com", message.as_string())
         print("\n\n\MAIL SEND\n\n")

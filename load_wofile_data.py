@@ -4,8 +4,8 @@ import datetime
 Base=declarative_base()
 class WO_FILE(Base):
     __tablename__="wofile"
-    AMC_Start_Period=Column("AMC_Start_Period", Date)
-    AMC_End_Period=Column("AMC_End_Period",Date)
+    Start_Period=Column("Start_Period", Date)
+    End_Period=Column("End_Period",Date)
     Date=Column("Date",Date)
     Work_Order_Number=Column("Work_Order_Number",String, primary_key=True)
     File_Order_Number=Column("File_Order_Number",String)
@@ -13,7 +13,9 @@ class WO_FILE(Base):
     Contact=Column("Contact",Integer)
     Amount=Column("Amount",Float)
     Address=Column("Address",String)
+    Email=Column("Email", String)
     Reminder=Column("Reminder", Integer, default=0)
+    City=Column("City", String)
     
 class load_wofile_data():
     def __init__(self, data):
@@ -34,33 +36,23 @@ class load_wofile_data():
         query=select(WO_FILE.Work_Order_Number) 
         result=self.conn.execute(query)
         # print(result.scalars().all())
-        l=[]
+     
         result= [x[0] for x in result.fetchall()]
         print(result)
-        i=0
-        while(i<len(self.data)):
-            x=self.data[i]
-            if(x['Work_Order_Number'] in result):
-                l.append(x['Work_Order_Number'])
-                self.data.remove(x)
-            else:
-                i+=1
-        print(l)
-        print(self.data)            
-        if(len(self.data)!=0):
-            self.insert_data()
+        x=self.data
+        print(self.data)
+        if(x['Work_Order_Number'] in result):
+            print("Data already in database")
+            raise Exception("Data already in database")
+
+        
+        self.insert_data()
     
     def insert_data(self):
         query=insert(WO_FILE)
         conn=self.engine.connect()
         result=conn.execute(query, self.data)
         conn.commit()
-
-        query=select(WO_FILE)
-        result=conn.execute(query)
-        
-        for row in result:
-            print(row)
         self.conn.close()
         self.engine.dispose()
 

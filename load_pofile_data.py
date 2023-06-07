@@ -11,6 +11,9 @@ class PO_FILE(Base):
     Contact=Column("Contact",Integer)
     Amount=Column("Amount",Float)
     Address=Column("Address",String)
+    Email=Column("Email", String)
+    City=Column("City", String)
+    
 
 
 
@@ -34,21 +37,14 @@ class load_pofile_data():
         query=select(PO_FILE.Purchase_Order_Number) 
         result=self.conn.execute(query)
         # print(result.scalars().all())
-        l=[]
+        
         result= [x[0] for x in result.fetchall()]
-        print(result)
-        i=0
-        while(i<len(self.data)):
-            x=self.data[i]
-            if(x['Purchase_Order_Number'] in result):
-                l.append(x['Purchase_Order_Number'])
-                self.data.remove(x)
-            else:
-                i+=1
-        print(l)
-        print(self.data)            
-        if(len(self.data)!=0):
-            self.insert_data()
+        # print("asdasdas",result)
+        x=self.data
+        if(x['Purchase_Order_Number'] in result):
+            # print("data already in database")
+            raise Exception("Data already in database")
+        self.insert_data()
     def insert_data(self):
         
         query=insert(PO_FILE)
@@ -60,7 +56,7 @@ class load_pofile_data():
         result=self.conn.execute(query)
         self.conn.close()
         self.engine.dispose()
-        return True
+      
         # for row in result:
         #     print(row)
         

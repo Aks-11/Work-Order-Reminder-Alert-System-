@@ -8,7 +8,7 @@ class alert():
         self.conn=self.engine.connect()
     
     def check(self):
-        query=text(f"select AMC_Start_Period, AMC_End_Period, Date, Work_Order_Number, File_Order_Number, Subject,Contact ,Amount, Reminder from wofile")
+        query=text(f"select Email,Start_Period, End_Period, Date, Work_Order_Number, File_Order_Number, Subject,Contact ,Amount, Reminder from wofile")
         result=self.conn.execute(query)
         l=[]
         for x in result.fetchall() :
@@ -20,10 +20,10 @@ class alert():
         sze=len(l)
         while(n<sze):
             x=l[n]
-            date_object = datetime.strptime(x["AMC_End_Period"], '%Y-%m-%d').date()
+            date_object = datetime.strptime(x["End_Period"], '%Y-%m-%d').date()
             # print((date_object))
             res=date_object-datetime.today().date()
-            if(res.days>60 or x["Reminder"]>=4):
+            if(res.days>60 or x["Reminder"]>=40):
                 l.pop(n)
                 sze-=1
             else:
@@ -38,6 +38,9 @@ class alert():
         self.conn.close()
         self.engine.dispose()
         # print(l,"\n\n",t)
+        return l
+        print(l)
+        print(l[0])
         if(len(l)!=0):
             header=l[0].keys()
             rows=[x.values() for x in l]
