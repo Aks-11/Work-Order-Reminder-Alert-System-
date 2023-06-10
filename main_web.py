@@ -77,7 +77,7 @@ def get_purchase_file_name():
         
         return redirect(url_for('main'))
     
-    return render_template("pofile_Web.html", form=form)
+    return render_template("pofile_web.html", form=form)
 
 
     
