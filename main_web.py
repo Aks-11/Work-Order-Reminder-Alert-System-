@@ -129,9 +129,13 @@ def get_work_file_name():
 
 @app.route("/write_to_excel")
 def write_to_excel():
-    wrt.write_to_excel(uploads_excel)
+    try:
+        wrt.write_to_excel(uploads_excel)
     
-    return send_from_directory(directory=uploads_excel,path="STPI_Data.xlsx")
+        return send_from_directory(directory=uploads_excel,path="STPI_Data.xlsx")
+    except Exception as error:
+        flash(f"{error}", 'danger')
+        return redirect(url_for('main'))
 
 @app.route("/search_file",methods=['POST','GET'])
 def search_file():
