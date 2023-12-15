@@ -10,8 +10,8 @@ class mail():
     def __init__(self, data,email):
         self.msg=data
         self.s = smtplib.SMTP('smtp.office365.com', 587)
-        self.sender_id="test.yuvraj@outlook.com"
-        self.sender_password="mehta@123"
+        self.sender_id=""#email_id
+        self.sender_password=""#password
         self.to_email=email
         self.send_mail()
         # print(email, data)
